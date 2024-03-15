@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memories/components/app_bar_title.dart';
 import 'package:memories/components/memories_form.dart';
+import 'package:memories/http/http_client.dart';
 import 'package:memories/repositories/memories_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +11,8 @@ class PickYourMemory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MemoriesRepository(),
+      create: (context) =>
+          MemoriesRepository(httpClient: Provider.of<HttpClient>(context)),
       builder: (context, child) => (Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,

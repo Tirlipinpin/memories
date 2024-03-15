@@ -1,13 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:memories/model/memory.dart';
+import 'package:http/http.dart' as http;
 
 class MemoriesRepository extends ChangeNotifier {
   final List<Memory> _memories = [];
+  final http.BaseClient _httpClient;
 
   List<Memory> get memories => _memories;
 
+  MemoriesRepository({required final http.BaseClient httpClient})
+      : _httpClient = httpClient;
+
   Future<void> fetchMemories() async {
     await Future.delayed(const Duration(seconds: 0));
+
+    await _httpClient.get(Uri.parse("/memories"));
 
     _memories.addAll([
       Memory(

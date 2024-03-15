@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:memories/components/app_bar_title.dart';
+import 'package:memories/http/http_client.dart';
 import 'package:memories/pages/pick_your_memory.dart';
 import 'package:memories/repositories/user_repository.dart';
 import 'package:provider/provider.dart';
 
+final httpClient = HttpClient(baseUrl: "https://127.0.0.1:3000");
+
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserRepository(),
-      child: const MyApp(),
-    ),
-  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => UserRepository(httpClient: httpClient),
+      ),
+      Provider(create: (context) => httpClient)
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
