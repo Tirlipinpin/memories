@@ -9,7 +9,7 @@ class UserRepository extends ChangeNotifier {
   set setUser(User? user) => _user = user;
 
   Future<void> fetch() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 0));
 
     _user = (User("Jean", "Jeannot", "123fezf"));
     notifyListeners();

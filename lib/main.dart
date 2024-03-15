@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:memories/components/app_bar_title.dart';
-import 'package:memories/components/user_pill.dart';
-import 'package:memories/model/user.dart';
 import 'package:memories/pages/pick_your_memory.dart';
 import 'package:memories/repositories/user_repository.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +59,7 @@ class Home extends StatelessWidget {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: Provider.of<UserRepository>(context).getUser == null
               ? [
                   const Text("Fetch the user"),

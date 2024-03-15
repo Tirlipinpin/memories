@@ -7,34 +7,42 @@ class MemoriesRepository extends ChangeNotifier {
   List<Memory> get memories => _memories;
 
   Future<void> fetchMemories() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 0));
 
     _memories.addAll([
       Memory(
         date: DateTime(2018, 09),
-        place: "Neuilly-sur-Seine",
-        title: "Embauche",
+        place: "Namek",
+        title: "Saiyan awakening",
         id: "1",
       ),
       Memory(
         date: DateTime(2016, 06),
-        place: "Sèvres",
-        title: "Bac",
+        place: "Tatooine",
+        title: "Birth",
         id: "2",
       ),
       Memory(
         date: DateTime(2013, 06),
-        place: "Ville d'Avray",
-        title: "Brevet",
+        place: "Gotham City",
+        title: "Fighting Evil",
         id: "3",
       ),
       Memory(
         date: DateTime(2021, 05, 04),
-        place: "Viroflay",
-        title: "Couple",
+        place: "Jade Palace",
+        title: "Became The Great Sage, Heaven's Equal",
         id: "4",
       ),
     ]);
+
+    notifyListeners();
+  }
+
+  Future<void> selectMemory(String memory) async {
+    await Future.delayed(const Duration(seconds: 0));
+
+    // do some async stuff
 
     notifyListeners();
   }
