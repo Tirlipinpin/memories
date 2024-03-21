@@ -5,7 +5,7 @@ import 'package:memories/pages/pick_your_memory.dart';
 import 'package:memories/repositories/user_repository.dart';
 import 'package:provider/provider.dart';
 
-final httpClient = HttpClient(baseUrl: "https://127.0.0.1:3000");
+final httpClient = HttpClient(baseUrl: "http://127.0.0.1:3000");
 
 void main() {
   runApp(MultiProvider(
