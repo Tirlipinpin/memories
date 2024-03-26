@@ -10,10 +10,12 @@ class PickYourMemory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) =>
+    return ChangeNotifierProxyProvider<HttpClient, MemoriesRepository>(
+      // Use a ProxyProvider
+      create: (context) => MemoriesRepository(),
+      update: (_, httpClient, repository) =>
           MemoriesRepository(httpClient: Provider.of<HttpClient>(context)),
-      builder: (context, child) => (Scaffold(
+      builder: (context, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const AppBarTitle(),
@@ -45,7 +47,7 @@ class PickYourMemory extends StatelessWidget {
             ),
           ],
         ),
-      )),
+      ),
     );
   }
 }

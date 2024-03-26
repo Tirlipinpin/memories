@@ -4,14 +4,18 @@ import 'package:http/http.dart' as http;
 
 class MemoriesRepository extends ChangeNotifier {
   final List<Memory> _memories = [];
-  final http.BaseClient _httpClient;
+  final http.BaseClient? _httpClient;
 
   List<Memory> get memories => _memories;
 
-  MemoriesRepository({required final http.BaseClient httpClient})
+  MemoriesRepository({final http.BaseClient? httpClient})
       : _httpClient = httpClient;
 
   Future<void> fetchMemories() async {
+    if (_httpClient == null) {
+      return;
+    }
+
     await Future.delayed(const Duration(seconds: 0));
 
     await _httpClient.get(Uri.parse("/memories"));
