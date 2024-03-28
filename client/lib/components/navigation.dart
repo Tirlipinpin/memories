@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
-class Navigation extends StatefulWidget {
-  const Navigation({super.key});
+class Navigation extends StatelessWidget {
+  final void Function(int?) _handleDestinationSelected;
+  final int _selectedIndex;
 
-  @override
-  State<Navigation> createState() => _NavigationState();
-}
+  const Navigation({
+    super.key,
+    required onDestinationSelected,
+    required int selectedIndex,
+  })  : _handleDestinationSelected = onDestinationSelected,
+        _selectedIndex = selectedIndex;
 
-class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return (NavigationBar(
+      onDestinationSelected: _handleDestinationSelected,
+      selectedIndex: _selectedIndex,
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.memory),

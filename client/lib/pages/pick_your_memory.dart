@@ -14,43 +14,31 @@ class PickYourMemory extends StatelessWidget {
       // Use a ProxyProvider
       create: (context) => MemoriesRepository(),
       update: (_, httpClient, repository) =>
-          MemoriesRepository(httpClient: Provider.of<HttpClient>(context)),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const AppBarTitle(),
-        ),
-        body: Builder(builder: (context) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: Provider.of<MemoriesRepository>(context)
-                        .memories
-                        .isNotEmpty
-                    ? [
-                        const Text(
-                          "Please select your memory",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        const MemoriesForm(),
-                      ]
-                    : [
-                        const Text("Fetch memories"),
-                        FilledButton(
-                          onPressed: Provider.of<MemoriesRepository>(context,
-                                  listen: false)
-                              .fetchMemories,
-                          child: const Icon(Icons.refresh),
-                        )
-                      ],
-              ),
-            ],
-          );
-        }),
-      ),
+          MemoriesRepository(httpClient: Provider.of<HttpClient>(context))
+            ..fetchMemories(),
+      child: Builder(builder: (context) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:
+                  Provider.of<MemoriesRepository>(context).memories.isNotEmpty
+                      ? [
+                          const Text(
+                            "Please select your memory",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          const MemoriesForm(),
+                        ]
+                      : [
+                          const Text("Fetching memories..."),
+                        ],
+            ),
+          ],
+        );
+      }),
     );
   }
 }
