@@ -15,7 +15,7 @@ class UserRepository extends ChangeNotifier {
       : _httpClient = httpClient;
 
   Future<void> fetch() async {
-    await Future.delayed(const Duration(seconds: 0));
+    await Future.delayed(const Duration(seconds: 1));
 
     await _httpClient.get(Uri.parse("/user"));
 

@@ -11,7 +11,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
-        create: (context) => UserRepository(httpClient: httpClient),
+        create: (context) => UserRepository(httpClient: httpClient)..fetch(),
       ),
       Provider(create: (context) => httpClient)
     ],
@@ -61,36 +61,31 @@ class Home extends StatelessWidget {
         title: const AppBarTitle(),
       ),
       body: Center(
-        child: Column(
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: Provider.of<UserRepository>(context).getUser == null
-              ? [
-                  const Text("Fetch the user"),
-                  FilledButton(
-                    onPressed:
-                        Provider.of<UserRepository>(context, listen: false)
-                            .fetch,
-                    child: const Icon(Icons.refresh),
-                  )
-                ]
-              : [
-                  Text(
-                    "Welcome ${Provider.of<UserRepository>(context).getUser?.getFirstName}",
-                  ),
-                  FilledButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const PickYourMemory(),
-                        ),
-                      );
-                    },
-                    child: const Text("Take me somewhere"),
-                  ),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: Column(
+            // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+            // action in the IDE, or press "p" in the console), to see the
+            // wireframe for each widget.
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: Provider.of<UserRepository>(context).getUser == null
+                ? [const Text("Fetching the user...")]
+                : [
+                    Text(
+                      "Welcome ${Provider.of<UserRepository>(context).getUser?.getFirstName}",
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PickYourMemory(),
+                          ),
+                        );
+                      },
+                      child: const Text("Take me somewhere"),
+                    ),
+                  ],
+          ),
         ),
       ),
     ));
