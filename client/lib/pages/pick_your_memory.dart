@@ -15,38 +15,41 @@ class PickYourMemory extends StatelessWidget {
       create: (context) => MemoriesRepository(),
       update: (_, httpClient, repository) =>
           MemoriesRepository(httpClient: Provider.of<HttpClient>(context)),
-      builder: (context, child) => Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const AppBarTitle(),
         ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:
-                  Provider.of<MemoriesRepository>(context).memories.isNotEmpty
-                      ? [
-                          const Text(
-                            "Please select your memory",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          const MemoriesForm(),
-                        ]
-                      : [
-                          const Text("Fetch memories"),
-                          FilledButton(
-                            onPressed: Provider.of<MemoriesRepository>(context,
-                                    listen: false)
-                                .fetchMemories,
-                            child: const Icon(Icons.refresh),
-                          )
-                        ],
-            ),
-          ],
-        ),
+        body: Builder(builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: Provider.of<MemoriesRepository>(context)
+                        .memories
+                        .isNotEmpty
+                    ? [
+                        const Text(
+                          "Please select your memory",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        const MemoriesForm(),
+                      ]
+                    : [
+                        const Text("Fetch memories"),
+                        FilledButton(
+                          onPressed: Provider.of<MemoriesRepository>(context,
+                                  listen: false)
+                              .fetchMemories,
+                          child: const Icon(Icons.refresh),
+                        )
+                      ],
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
