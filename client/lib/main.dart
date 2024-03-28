@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memories/components/app_bar_title.dart';
+import 'package:memories/components/home_loader.dart';
+import 'package:memories/components/navigation.dart';
 import 'package:memories/http/http_client.dart';
 import 'package:memories/pages/pick_your_memory.dart';
 import 'package:memories/repositories/user_repository.dart';
@@ -55,39 +57,26 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (Provider.of<UserRepository>(context).getUser == null) {
+      return const Scaffold(
+        body: Center(
+          child: HomeLoader(),
+        ),
+      );
+    }
+
     return (Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const AppBarTitle(),
       ),
-      body: Center(
+      body: const Center(
         child: Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: Column(
-            // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-            // action in the IDE, or press "p" in the console), to see the
-            // wireframe for each widget.
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: Provider.of<UserRepository>(context).getUser == null
-                ? [const Text("Fetching the user...")]
-                : [
-                    Text(
-                      "Welcome ${Provider.of<UserRepository>(context).getUser?.getFirstName}",
-                    ),
-                    FilledButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const PickYourMemory(),
-                          ),
-                        );
-                      },
-                      child: const Text("Take me somewhere"),
-                    ),
-                  ],
-          ),
+          padding: EdgeInsets.only(top: 16),
+          child: Text("Let's display stuff"),
         ),
       ),
+      bottomNavigationBar: const Navigation(),
     ));
   }
 }
