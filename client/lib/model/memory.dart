@@ -21,4 +21,17 @@ class Memory {
         _title = title,
         _place = place,
         _id = id;
+
+  factory Memory.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        'date': String date,
+        'place': String place,
+        'title': String title,
+        'id': String id,
+      } =>
+        Memory(date: DateTime.parse(date), place: place, title: title, id: id),
+      _ => throw const FormatException("Failed to load memory")
+    };
+  }
 }
