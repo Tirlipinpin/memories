@@ -1,9 +1,25 @@
-import Fastify from 'fastify'
+import Fastify, { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
 import { User } from './model/User'
 import { Memory } from './model/Memory'
 const fastify = Fastify({
   logger: true
 })
+
+function cors(request: FastifyRequest, reply: FastifyReply, done: any) {
+  reply.headers({
+    'access-control-allow-methods': 'GET',
+    'access-control-allow-origin': request.headers.origin ?? '',
+    'access-control-allow-headers': [
+      'Accept',
+      'Content-Type',
+      'Origin',
+    ].join(', ')
+  })
+
+  done()
+}
+
+fastify.addHook('onRequest', cors)
 
 fastify.get('/user', function (request, reply) {
   const user: User = {
