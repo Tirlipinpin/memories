@@ -22,14 +22,10 @@ class MemoriesPicker extends StatefulWidget {
 class _MemoriesPickerState extends State<MemoriesPicker> {
   @override
   Widget build(BuildContext context) {
-    return (DropdownButtonFormField(
-      hint: const Text("Please select a memory"),
+    return DropdownButtonFormField(
       decoration: const InputDecoration(
-        contentPadding: EdgeInsets.all(0.0),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        isDense: true,
+        border: OutlineInputBorder(),
+        labelText: "Memory"
       ),
       isExpanded: true,
       items: widget._memories
@@ -42,6 +38,6 @@ class _MemoriesPickerState extends State<MemoriesPicker> {
           .toList(),
       value: widget._dropdownValue,
       onChanged: widget._onChanged,
-    ));
+    );
   }
 }

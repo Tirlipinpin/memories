@@ -4,6 +4,7 @@ import 'package:memories/components/home_loader.dart';
 import 'package:memories/components/navigation.dart';
 import 'package:memories/http/http_client.dart';
 import 'package:memories/pages/pick_your_memory.dart';
+import 'package:memories/pages/profile.dart';
 import 'package:memories/repositories/user_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.only(top: 16),
           child: [
             const PickYourMemory(),
-            const Text("Profile section")
+            const Profile(),
           ][currentPageIndex],
         ),
       ),
